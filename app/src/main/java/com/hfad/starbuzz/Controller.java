@@ -37,6 +37,18 @@ class Controller {
         }
     }
 
+    Drink getDrinkById(int drinkId) throws ModelException {
+        try {
+            Drink drink = StarbuzzDatabaseHelper.getDrinkById(helper.getReadableDatabase(), drinkId);
+            if (drink != null) {
+                return drink;
+            }
+        } catch (SQLiteException e) {
+            throw new ModelException(e.getMessage(), e.getCause());
+        }
+        throw new ModelException("Unable to retrieve drink with id " + drinkId);
+    }
+
     CursorAdapter getDrinkNames(Context context, int layout, int to)
         throws ModelException {
         try {

@@ -14,7 +14,7 @@ public class Drink {
     };
 
     //Each Drink has a name, description, and an image resource
-    private Drink(String name, String description, int imageResourceId) {
+    Drink(String name, String description, int imageResourceId) {
         this.name = name;
         this.description = description;
         this.imageResourceId = imageResourceId;

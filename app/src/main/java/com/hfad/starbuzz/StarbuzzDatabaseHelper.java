@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class StarbuzzDatabaseHelper extends SQLiteOpenHelper {
@@ -40,9 +41,27 @@ public class StarbuzzDatabaseHelper extends SQLiteOpenHelper {
     }
 
     static Cursor getDrinkNames(SQLiteDatabase db) {
-        return db.query("DRINK",
-                new String[]{"_id", "NAME"},
+        return db.query(DRINK_TABLE,
+                new String[]{ID_COL, NAME_COL},
                 null, null, null, null, null);
+    }
+
+    static Drink getDrinkById(SQLiteDatabase db, int drinkId) throws SQLiteException {
+        Cursor cursor = db.query(DRINK_TABLE,
+                new String[]{NAME_COL, DESCRIPTION_COL, IMAGE_ID_COL},
+                ID_COL + " = ?",
+                new String[]{Integer.toString(drinkId)},
+                null, null, null);
+        //Move to the first record in the Cursor
+        if (cursor.moveToFirst()) {
+            //Get the drink details from the cursor
+            String nameText = cursor.getString(0);
+            String descriptionText = cursor.getString(1);
+            int photoId = cursor.getInt(2);
+            cursor.close();
+            return new Drink(nameText, descriptionText, photoId);
+        }
+        return null;
     }
 
     private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
