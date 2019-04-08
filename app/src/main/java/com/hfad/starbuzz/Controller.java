@@ -3,6 +3,7 @@ package com.hfad.starbuzz;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.widget.CursorAdapter;
 import android.widget.SimpleCursorAdapter;
 
@@ -26,15 +27,19 @@ class Controller {
         return instance;
     }
 
-    CursorAdapter getDrinkNames(Context context, int layout, int to) {
-        SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor cursor = StarbuzzDatabaseHelper.getDrinkNames(db);
-        return new SimpleCursorAdapter(context,
-                layout,
-                cursor,
-                new String[]{StarbuzzDatabaseHelper.NAME_COL},
-                new int[]{to},
-                0);
-
+    CursorAdapter getDrinkNames(Context context, int layout, int to)
+        throws ModelException {
+        try {
+            SQLiteDatabase db = helper.getReadableDatabase();
+            Cursor cursor = StarbuzzDatabaseHelper.getDrinkNames(db);
+            return new SimpleCursorAdapter(context,
+                    layout,
+                    cursor,
+                    new String[]{StarbuzzDatabaseHelper.NAME_COL},
+                    new int[]{to},
+                    0);
+        } catch (SQLiteException e) {
+            throw new ModelException(e.getMessage(), e.getCause());
+        }
     }
 }

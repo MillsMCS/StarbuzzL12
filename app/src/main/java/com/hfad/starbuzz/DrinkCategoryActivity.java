@@ -2,7 +2,6 @@ package com.hfad.starbuzz;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
@@ -28,8 +27,8 @@ public class DrinkCategoryActivity extends Activity {
             CursorAdapter adapter = controller.getDrinkNames(this,
                     android.R.layout.simple_list_item_1, android.R.id.text1);
             listDrinks.setAdapter(adapter);
-        } catch(SQLiteException e) {
-            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
+        } catch(ModelException e) {
+            Toast toast = Toast.makeText(this, "Unable to retrieve drink information", Toast.LENGTH_SHORT);
             toast.show();
         }
 
