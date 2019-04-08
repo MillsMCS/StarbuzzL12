@@ -10,11 +10,16 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class DrinkCategoryActivity extends Activity {
     private Controller controller;
+    private Set<CursorAdapter> adapters;
 
     public DrinkCategoryActivity() {
         this.controller = Controller.getInstance(this);
+        adapters = new HashSet<>();
     }
 
     @Override
@@ -26,6 +31,7 @@ public class DrinkCategoryActivity extends Activity {
         try {
             CursorAdapter adapter = controller.getDrinkNames(this,
                     android.R.layout.simple_list_item_1, android.R.id.text1);
+            adapters.add(adapter);
             listDrinks.setAdapter(adapter);
         } catch(ModelException e) {
             Toast toast = Toast.makeText(this, "Unable to retrieve drink information", Toast.LENGTH_SHORT);
@@ -55,5 +61,6 @@ public class DrinkCategoryActivity extends Activity {
     @Override
     public void onDestroy(){
         super.onDestroy();
+        Controller.closeCursors(adapters);
     }
 }

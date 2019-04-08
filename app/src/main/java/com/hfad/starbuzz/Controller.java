@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteException;
 import android.widget.CursorAdapter;
 import android.widget.SimpleCursorAdapter;
 
+import java.util.Set;
+
 /**
  * MVC controller.
  *
@@ -25,6 +27,14 @@ class Controller {
             instance = new Controller(context);
         }
         return instance;
+    }
+
+    static void closeCursors(Set<CursorAdapter> adapters) {
+        for (CursorAdapter adapter : adapters) {
+            if (adapter.getCursor() != null) {
+                adapter.getCursor().close();
+            }
+        }
     }
 
     CursorAdapter getDrinkNames(Context context, int layout, int to)
