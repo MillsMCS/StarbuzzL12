@@ -7,7 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DrinkActivity extends Activity {
-    public static final String EXTRA_DRINKID = "drinkId";
+    static final String EXTRA_DRINKID = "drinkId";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

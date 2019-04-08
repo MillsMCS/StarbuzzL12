@@ -70,10 +70,9 @@ public class StarbuzzDatabaseHelper extends SQLiteOpenHelper {
                     + NAME_COL + " TEXT, "
                     + DESCRIPTION_COL + " TEXT, "
                     + IMAGE_ID_COL + " INTEGER);");
-            insertDrink(db, "Latte", "Espresso and steamed milk", R.drawable.latte);
-            insertDrink(db, "Cappuccino", "Espresso, hot milk and steamed-milk foam",
-                    R.drawable.cappuccino);
-            insertDrink(db, "Filter", "Our best drip coffee", R.drawable.filter);
+            for (Drink drinks : Drink.DRINKS) {
+                insertDrink(db, drinks.getName(), drinks.getDescription(), drinks.getImageResourceId());
+            }
         }
         if (oldVersion < 2) {
             db.execSQL("ALTER TABLE " + DRINK_TABLE + " ADD COLUMN " + FAVORITE_COL + " NUMERIC;");

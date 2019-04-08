@@ -3,11 +3,10 @@ package com.hfad.starbuzz;
 /**
  * Created by davidg on 30/04/2017.
  */
-
-public class Drink {
+class Drink {
     private String name; private String description; private int imageResourceId;
     //drinks is an array of Drinks
-    public static final Drink[] drinks = {
+    static final Drink[] DRINKS = {
             new Drink("Latte", "A couple of espresso shots with steamed milk", R.drawable.latte),
             new Drink("Cappuccino", "Espresso, hot milk, and a steamed milk foam", R.drawable.cappuccino),
             new Drink("Filter", "Highest quality beans roasted and brewed fresh", R.drawable.filter)
@@ -20,18 +19,19 @@ public class Drink {
         this.imageResourceId = imageResourceId;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public int getImageResourceId() {
+    int getImageResourceId() {
         return imageResourceId;
     }
 
+    @Override
     public String toString() {
         return this.name;
     }
