@@ -2,13 +2,14 @@ package com.hfad.starbuzz;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class StarbuzzDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "starbuzz"; // the name of our database
     private static final String DRINK_TABLE = "DRINK";
-    private static final String NAME_COL = "NAME";
+    static final String NAME_COL = "NAME";
     private static final String ID_COL = "_id";
     private static final String DESCRIPTION_COL = "DESCRIPTION";
     private static final String IMAGE_ID_COL = "IMAGE_RESOURCE_ID";
@@ -36,6 +37,12 @@ public class StarbuzzDatabaseHelper extends SQLiteOpenHelper {
         drinkValues.put(DESCRIPTION_COL, description);
         drinkValues.put(IMAGE_ID_COL, resourceId);
         db.insert(DRINK_TABLE, null, drinkValues);
+    }
+
+    static Cursor getDrinkNames(SQLiteDatabase db) {
+        return db.query("DRINK",
+                new String[]{"_id", "NAME"},
+                null, null, null, null, null);
     }
 
     private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
