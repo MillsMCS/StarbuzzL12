@@ -9,6 +9,7 @@ public class StarbuzzDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "starbuzz"; // the name of our database
     private static final String DRINK_TABLE = "DRINK";
     private static final String NAME_COL = "NAME";
+    private static final String ID_COL = "_id";
     private static final String DESCRIPTION_COL = "DESCRIPTION";
     private static final String IMAGE_ID_COL = "IMAGE_RESOURCE_ID";
     private static final String FAVORITE_COL = "FAVORITE";
@@ -39,7 +40,7 @@ public class StarbuzzDatabaseHelper extends SQLiteOpenHelper {
 
     private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 1) {
-            db.execSQL("CREATE TABLE " + DRINK_TABLE + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            db.execSQL("CREATE TABLE " + DRINK_TABLE + "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + NAME_COL + " TEXT, "
                     + DESCRIPTION_COL + " TEXT, "
                     + IMAGE_ID_COL + " INTEGER);");
