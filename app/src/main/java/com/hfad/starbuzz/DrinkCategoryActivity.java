@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,28 +21,19 @@ public class DrinkCategoryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink_category);
-        SQLiteOpenHelper starbuzzDatabaseHelper = new StarbuzzDatabaseHelper(this);
         ListView listDrinks = (ListView) findViewById(R.id.list_drinks);
         try {
-            db = starbuzzDatabaseHelper.getReadableDatabase();
-            cursor = db.query(StarbuzzDatabaseHelper.DRINK_TABLE,
-                    new String[]{StarbuzzDatabaseHelper.ID_COL, StarbuzzDatabaseHelper.NAME_COL},
-                    null, null, null, null, null);
-            SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this,
-                    android.R.layout.simple_list_item_1,
-                    cursor,
-                    new String[]{"NAME"},
-                    new int[]{android.R.id.text1},
-                    0);
+            SimpleCursorAdapter listAdapter = Controller.getInstance(this)
+                    .getDrinks(this, android.R.layout.simple_list_item_1, android.R.id.text1);
             listDrinks.setAdapter(listAdapter);
-        } catch(SQLiteException e) {
+        } catch (SQLiteException e) {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
 
         //Create the listener
         AdapterView.OnItemClickListener itemClickListener =
-                new AdapterView.OnItemClickListener(){
+                new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> listDrinks,
                                             View itemView,
@@ -62,7 +52,7 @@ public class DrinkCategoryActivity extends Activity {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         cursor.close();
         db.close();
