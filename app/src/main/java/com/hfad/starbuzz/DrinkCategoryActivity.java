@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -27,8 +26,8 @@ public class DrinkCategoryActivity extends Activity {
         ListView listDrinks = (ListView) findViewById(R.id.list_drinks);
         try {
             db = starbuzzDatabaseHelper.getReadableDatabase();
-            cursor = db.query("DRINK",
-                    new String[]{"_id", "NAME"},
+            cursor = db.query(StarbuzzDatabaseHelper.DRINK_TABLE,
+                    new String[]{StarbuzzDatabaseHelper.ID_COL, StarbuzzDatabaseHelper.NAME_COL},
                     null, null, null, null, null);
             SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this,
                     android.R.layout.simple_list_item_1,
