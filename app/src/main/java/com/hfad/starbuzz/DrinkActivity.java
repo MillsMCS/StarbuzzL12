@@ -15,21 +15,21 @@ public class DrinkActivity extends Activity {
         setContentView(R.layout.activity_drink);
 
         //Get the drinkId from the intent
-        int drinkId = (Integer)getIntent().getExtras().get(EXTRA_DRINKID);
+        int drinkId = (Integer) getIntent().getExtras().get(EXTRA_DRINKID);
 
         try {
             Drink drink = Controller.getInstance(this).getDrinkById(drinkId);
 
             //Populate the drink name
-            TextView name = (TextView) findViewById(R.id.name);
+            TextView name = findViewById(R.id.name);
             name.setText(drink.getName());
 
             //Populate the drink description
-            TextView description = (TextView) findViewById(R.id.description);
+            TextView description = findViewById(R.id.description);
             description.setText(drink.getDescription());
 
             //Populate the drink image
-            ImageView photo = (ImageView) findViewById(R.id.photo);
+            ImageView photo = findViewById(R.id.photo);
             photo.setImageResource(drink.getImageResourceId());
             photo.setContentDescription(drink.getName());
         } catch (ModelException e) {

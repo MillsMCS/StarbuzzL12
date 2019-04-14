@@ -26,7 +26,7 @@ public class DrinkCategoryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink_category);
-        ListView listDrinks = (ListView) findViewById(R.id.list_drinks);
+        ListView listDrinks = findViewById(R.id.list_drinks);
         try {
             CursorAdapter adapter = controller.getDrinkNames(this,
                     android.R.layout.simple_list_item_1, android.R.id.text1);
