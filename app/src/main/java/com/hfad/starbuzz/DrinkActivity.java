@@ -14,11 +14,12 @@ public class DrinkActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink);
 
-        //Get the drink from the intent
+        //Get the drinkId from the intent
         int drinkId = (Integer)getIntent().getExtras().get(EXTRA_DRINKID);
 
         try {
             Drink drink = Controller.getInstance(this).getDrinkById(drinkId);
+
             //Populate the drink name
             TextView name = (TextView) findViewById(R.id.name);
             name.setText(drink.getName());
