@@ -26,14 +26,13 @@ public class DrinkCategoryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink_category);
-        SQLiteOpenHelper starbuzzDatabaseHelper = new StarbuzzDatabaseHelper(this);
-        ListView listDrinks = (ListView) findViewById(R.id.list_drinks);
+        ListView listDrinks = findViewById(R.id.list_drinks);
         try {
             CursorAdapter adapter = controller.getDrinkNames(this,
                     android.R.layout.simple_list_item_1, android.R.id.text1);
             adapters.add(adapter);
             listDrinks.setAdapter(adapter);
-        } catch(ModelException e) {
+        } catch (ModelException e) {
             Toast toast = Toast.makeText(this, "Unable to retrieve drink information", Toast.LENGTH_SHORT);
             toast.show();
         }
@@ -59,7 +58,7 @@ public class DrinkCategoryActivity extends Activity {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         DrinkController.closeCursors(adapters);
     }
