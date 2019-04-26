@@ -14,17 +14,17 @@ import java.util.Set;
  *
  * @author Ellen Spertus
  */
-class Controller {
-    private static Controller instance;
+class DrinkController {
+    private static DrinkController instance;
     private StarbuzzDatabaseHelper helper;
 
-    private Controller(Context context) {
+    private DrinkController(Context context) {
         this.helper = new StarbuzzDatabaseHelper(context);
     }
 
-    synchronized static Controller getInstance(Context context) {
+    synchronized static DrinkController getInstance(Context context) {
         if (instance == null) {
-            instance = new Controller(context);
+            instance = new DrinkController(context);
         }
         return instance;
     }

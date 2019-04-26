@@ -18,7 +18,7 @@ public class DrinkActivity extends Activity {
         int drinkId = (Integer)getIntent().getExtras().get(EXTRA_DRINKID);
 
         try {
-            Drink drink = Controller.getInstance(this).getDrinkById(drinkId);
+            Drink drink = DrinkController.getInstance(this).getDrinkById(drinkId);
             //Populate the drink name
             TextView name = (TextView) findViewById(R.id.name);
             name.setText(drink.getName());

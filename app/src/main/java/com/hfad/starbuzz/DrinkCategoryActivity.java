@@ -14,11 +14,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DrinkCategoryActivity extends Activity {
-    private Controller controller;
+    private DrinkController controller;
     private Set<CursorAdapter> adapters;
 
     public DrinkCategoryActivity() {
-        this.controller = Controller.getInstance(this);
+        this.controller = DrinkController.getInstance(this);
         adapters = new HashSet<>();
     }
 
@@ -61,6 +61,6 @@ public class DrinkCategoryActivity extends Activity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        Controller.closeCursors(adapters);
+        DrinkController.closeCursors(adapters);
     }
 }
